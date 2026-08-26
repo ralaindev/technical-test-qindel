@@ -5,8 +5,19 @@ en una fecha y hora determinadas.
 
 ## Requisitos
 
-- Java 17 o superior
+- Java 17
+- Spring Boot 4.1.1
 - Maven Wrapper incluido
+
+El proyecto utiliza Spring Boot 4.1.1 porque es la versión estable disponible en
+Spring Initializr. La versión 3.4.1 que aparece en la captura proporcionada ya no está disponible; Initializr ofrecía versiones a partir de la
+4.0.8.
+
+El cambio a Spring Boot 3.4.1 no consistiría únicamente en modificar la versión
+del parent. Habría que adaptar el `pom.xml`, ya que algunos starters y versiones
+de dependencias han cambiado, además de revisar la configuración de OpenAPI y
+las APIs afectadas. Por ese motivo el proyecto se mantiene alineado con la
+versión generada por Initializr.
 
 ## Ejecutar
 
