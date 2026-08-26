@@ -37,6 +37,7 @@ paths:
           schema:
             type: integer
             format: int64
+            minimum: 1
           example: 35455
 
         - name: brandId
@@ -46,6 +47,7 @@ paths:
           schema:
             type: integer
             format: int64
+            minimum: 1
           example: 1
 
       responses:
