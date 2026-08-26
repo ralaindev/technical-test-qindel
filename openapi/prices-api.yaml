@@ -1,0 +1,152 @@
+openapi: 3.1.0
+
+info:
+  title: API de precios
+  version: 1.0.0
+  description: API para consultar el precio aplicable a un producto de una cadena en una fecha y hora determinadas.
+
+servers:
+  - url: http://localhost:8080
+
+tags:
+  - name: Prices
+    description: Operaciones relacionadas con la consulta de precios
+
+paths:
+  /api/v1/prices:
+    get:
+      tags:
+        - Prices
+      summary: Obtener el precio
+      operationId: getPrice
+
+      parameters:
+        - name: queryDate
+          in: query
+          required: true
+          description: Fecha de aplicación.
+          schema:
+            type: string
+            format: date-time
+          example: "2020-06-14T16:00:00+02:00"
+
+        - name: productId
+          in: query
+          required: true
+          description: Identificador de producto.
+          schema:
+            type: integer
+            format: int64
+          example: 35455
+
+        - name: brandId
+          in: query
+          required: true
+          description: Identificador de cadena.
+          schema:
+            type: integer
+            format: int64
+          example: 1
+
+      responses:
+        "200":
+          description: Precio aplicable encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PriceResponse"
+
+        "400":
+          description: Parámetros de entrada no válidos.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                invalidParameters:
+                  value:
+                    status: 400
+                    message: Parámetros de entrada no válidos.
+
+        "404":
+          description: No se ha encontrado un precio aplicable.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                priceNotFound:
+                  value:
+                    status: 404
+                    message: No se ha encontrado un precio aplicable.
+
+components:
+  schemas:
+    PriceResponse:
+      type: object
+      required:
+        - productId
+        - brandId
+        - priceList
+        - startDate
+        - endDate
+        - price
+        - currency
+      properties:
+        productId:
+          type: integer
+          format: int64
+          description: Identificador de producto.
+          examples:
+            - 35455
+
+        brandId:
+          type: integer
+          format: int64
+          description: Identificador de cadena.
+          examples:
+            - 1
+
+        priceList:
+          type: integer
+          format: int64
+          description: Tarifa que se debe aplicar.
+          examples:
+            - 2
+
+        startDate:
+          type: string
+          format: date-time
+          description: Fecha de inicio de aplicación de la tarifa.
+          examples:
+            - "2020-06-14T15:00:00+02:00"
+
+        endDate:
+          type: string
+          format: date-time
+          description: Fecha de fin de aplicación de la tarifa.
+          examples:
+            - "2020-06-14T18:30:00+02:00"
+
+        price:
+          type: number
+          description: Precio final que se debe aplicar.
+          examples:
+            - 25.45
+
+        currency:
+          type: string
+          description: ISO de la moneda.
+          examples:
+            - EUR
+    ErrorResponse:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: integer
+
+        message:
+          type: string
