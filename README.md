@@ -55,6 +55,10 @@ Ejemplo de respuesta:
 
 Cuando coinciden varias tarifas, se devuelve la de mayor `priority`.
 
+Las fechas de las tarifas representan la hora local de la cadena. Se consultan
+usando los componentes locales de `queryDate`; su offset se conserva al
+representar las fechas en la respuesta.
+
 Si falta un parámetro o su formato no es válido, la API devuelve `400`:
 
 ```json
@@ -73,12 +77,13 @@ Si no existe una tarifa aplicable, devuelve `404`.
 ```
 
 Los tests de integración cubren las cinco peticiones solicitadas en el
-enunciado: 
--          Test 1: petición a las 10:00 del día 14 del producto 35455   para la brand 1 (ZARA)
--          Test 2: petición a las 16:00 del día 14 del producto 35455   para la brand 1 (ZARA)
--          Test 3: petición a las 21:00 del día 14 del producto 35455   para la brand 1 (ZARA)
--          Test 4: petición a las 10:00 del día 15 del producto 35455   para la brand 1 (ZARA)
--          Test 5: petición a las 21:00 del día 16 del producto 35455   para la brand 1 (ZARA)
+enunciado:
+
+- Test 1: petición a las 10:00 del día 14 del producto 35455 para la marca 1 (ZARA).
+- Test 2: petición a las 16:00 del día 14 del producto 35455 para la marca 1 (ZARA).
+- Test 3: petición a las 21:00 del día 14 del producto 35455 para la marca 1 (ZARA).
+- Test 4: petición a las 10:00 del día 15 del producto 35455 para la marca 1 (ZARA).
+- Test 5: petición a las 21:00 del día 16 del producto 35455 para la marca 1 (ZARA).
 
 ## Base de datos
 
@@ -89,6 +94,12 @@ ejemplo al iniciar la aplicación:
 - `src/main/resources/db/migration/V2__initial_data.sql`
 
 La consola de H2 está disponible en `http://localhost:8080/h2-console`
+
+Datos de conexión:
+
+- JDBC URL: `jdbc:h2:mem:testdb`
+- Usuario: `sa`
+- Contraseña: vacía
 
 ## Documentación OpenAPI
 

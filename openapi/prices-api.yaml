@@ -24,7 +24,7 @@ paths:
         - name: queryDate
           in: query
           required: true
-          description: Fecha de aplicación.
+          description: Fecha y hora local de aplicación de la tarifa. Las tarifas se consultan usando los componentes locales de esta fecha.
           schema:
             type: string
             format: date-time

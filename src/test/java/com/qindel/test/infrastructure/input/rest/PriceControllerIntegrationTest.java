@@ -97,8 +97,6 @@ class PriceControllerIntegrationTest {
                 .andExpect(jsonPath("$.currency").value("EUR"));
     }
 
-    //AÑADO MÁS TESTS PARA DIFERENTES CASOS
-
     @Test
     void shouldReturnBadRequestWhenQueryDateHasInvalidFormat() throws Exception {
         mockMvc.perform(get("/api/v1/prices")
