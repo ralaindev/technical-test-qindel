@@ -18,7 +18,7 @@ class PriceControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
-    void shouldReturnPriceListOneAtTenOnJuneFourteenth() throws Exception {
+    void shouldReturnApplicablePriceWhenQueriedAt10OnJune14() throws Exception {
         mockMvc.perform(get("/api/v1/prices")
                         .param("queryDate", "2020-06-14T10:00:00+02:00")
                         .param("productId", "35455")
@@ -34,7 +34,7 @@ class PriceControllerIntegrationTest {
     }
 
     @Test
-    void shouldReturnPriceListTwoAtSixteenOnJuneFourteenth() throws Exception {
+    void shouldReturnApplicablePriceWhenQueriedAt16OnJune14() throws Exception {
         mockMvc.perform(get("/api/v1/prices")
                         .param("queryDate", "2020-06-14T16:00:00+02:00")
                         .param("productId", "35455")
@@ -50,7 +50,7 @@ class PriceControllerIntegrationTest {
     }
 
     @Test
-    void shouldReturnPriceListOneAtTwentyOneOnJuneFourteenth() throws Exception {
+    void shouldReturnApplicablePriceWhenQueriedAt21OnJune14() throws Exception {
         mockMvc.perform(get("/api/v1/prices")
                         .param("queryDate", "2020-06-14T21:00:00+02:00")
                         .param("productId", "35455")
@@ -66,7 +66,7 @@ class PriceControllerIntegrationTest {
     }
 
     @Test
-    void shouldReturnPriceListThreeAtTenOnJuneFifteenth() throws Exception {
+    void shouldReturnApplicablePriceWhenQueriedAt10OnJune15() throws Exception {
         mockMvc.perform(get("/api/v1/prices")
                         .param("queryDate", "2020-06-15T10:00:00+02:00")
                         .param("productId", "35455")
@@ -82,7 +82,7 @@ class PriceControllerIntegrationTest {
     }
 
     @Test
-    void shouldReturnPriceListFourAtTwentyOneOnJuneSixteenth() throws Exception {
+    void shouldReturnApplicablePriceWhenQueriedAt21OnJune16() throws Exception {
         mockMvc.perform(get("/api/v1/prices")
                         .param("queryDate", "2020-06-16T21:00:00+02:00")
                         .param("productId", "35455")
@@ -97,8 +97,10 @@ class PriceControllerIntegrationTest {
                 .andExpect(jsonPath("$.currency").value("EUR"));
     }
 
+    //AÑADO MÁS TESTS PARA DIFERENTES CASOS
+
     @Test
-    void shouldReturnBadRequestWhenQueryDateIsInvalid() throws Exception {
+    void shouldReturnBadRequestWhenQueryDateHasInvalidFormat() throws Exception {
         mockMvc.perform(get("/api/v1/prices")
                         .param("queryDate", "invalid-date")
                         .param("productId", "35455")
@@ -109,7 +111,7 @@ class PriceControllerIntegrationTest {
     }
 
     @Test
-    void shouldReturnBadRequestWhenRequiredParameterIsMissing() throws Exception {
+    void shouldReturnBadRequestWhenBrandIdIsMissing() throws Exception {
         mockMvc.perform(get("/api/v1/prices")
                         .param("queryDate", "2020-06-14T10:00:00+02:00")
                         .param("productId", "35455"))
@@ -119,7 +121,7 @@ class PriceControllerIntegrationTest {
     }
 
     @Test
-    void shouldReturnBadRequestWhenProductIdIsNotPositive() throws Exception {
+    void shouldReturnBadRequestWhenProductIdIsZero() throws Exception {
         mockMvc.perform(get("/api/v1/prices")
                         .param("queryDate", "2020-06-14T10:00:00+02:00")
                         .param("productId", "0")
@@ -130,7 +132,7 @@ class PriceControllerIntegrationTest {
     }
 
     @Test
-    void shouldReturnBadRequestWhenBrandIdIsNotPositive() throws Exception {
+    void shouldReturnBadRequestWhenBrandIdIsNegative() throws Exception {
         mockMvc.perform(get("/api/v1/prices")
                         .param("queryDate", "2020-06-14T10:00:00+02:00")
                         .param("productId", "35455")

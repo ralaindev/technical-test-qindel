@@ -60,7 +60,7 @@ class GetPriceServiceTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenPriceIsNotFound() {
+    void shouldThrowPriceNotFoundExceptionWhenNoApplicablePriceExists() {
         OffsetDateTime queryDate =
                 OffsetDateTime.of(2020, 6, 14, 16, 0, 0, 0, ZoneOffset.ofHours(2));
 
